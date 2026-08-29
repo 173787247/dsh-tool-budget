@@ -1,4 +1,5 @@
 import {
+  formatBlockMessage,
   nextCount,
   readMaxCalls,
   toPatterns,
@@ -39,11 +40,7 @@ export function apply(ctx, config = {}) {
   ctx.tools.guard((exec) => {
     const count = observe(exec);
     if (count === undefined || count <= maxCalls) return undefined;
-    return [
-      `dsh-tool-budget: blocked ${exec.name} after ${maxCalls} tool calls this session.`,
-      "Finish with what you have, ask the user, or start a new session.",
-      `count=${count} maxCalls=${maxCalls}`,
-    ].join(" ");
+    return formatBlockMessage(exec.name, maxCalls, count);
   });
 
   ctx.on("tools/post-execute", async (exec, _result, next) => {
