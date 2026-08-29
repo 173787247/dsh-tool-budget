@@ -1,3 +1,5 @@
+# Default dsh-tool-budget config for DeepSeek Harness profiles.
+# Later layers that redefine this plugin config replace the whole object.
 - insert:
     - id: dsh-tool-budget
       name: dsh-tool-budget
