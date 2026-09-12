@@ -1,3 +1,7 @@
+## 0.1.2
+
+- systemPrompt + Agent Teams note; per-teammate WeakMap documented.
+
 # Changelog
 
 ## 0.1.1

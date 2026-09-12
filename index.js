@@ -7,11 +7,12 @@ import {
 } from "./lib/budget.js";
 
 export const name = "dsh-tool-budget";
-export const inject = ["tools"];
+export const inject = ["tools", "systemPrompt"];
 
 /**
  * Cap total tool calls per agent session. Complements dsh-repeat-stop
  * (identical-call streak) with a session-wide ceiling.
+ * Agent Teams: each teammate agent has its own budget (WeakMap per agent).
  */
 export function apply(ctx, config = {}) {
   const enabled = config.enabled !== false;
@@ -27,6 +28,12 @@ export function apply(ctx, config = {}) {
   }
 
   console.log(`[dsh-tool-budget] loaded maxCalls=${maxCalls}`);
+
+  ctx.systemPrompt?.section?.({
+    name: "plugin:dsh-tool-budget",
+    order: 41,
+    text: `Tool calls are capped at ${maxCalls} per agent session (dsh-tool-budget). Agent Teams multiplies spend across teammates — keep subagents short or raise maxCalls only when needed.`,
+  });
 
   function observe(exec) {
     if (!exec.agent || !tracked(exec.name, includePatterns, excludePatterns)) return undefined;
