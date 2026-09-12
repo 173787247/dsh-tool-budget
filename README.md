@@ -4,21 +4,31 @@ DeepSeek Harness plugin: **hard-stop** tool use after a **per-session** call bud
 
 Pairs with [dsh-repeat-stop](https://github.com/173787247/dsh-repeat-stop). Part of **[dsh-wsl-kit](https://github.com/173787247/dsh-wsl-kit)**.
 
-[涓枃璇存槑 鈫揮(#涓枃)
+[中文说明 → README.zh.md](./README.zh.md)
 
 ---
+## Compatibility
 
-## English
+| Field | Value |
+|-------|-------|
+| **Plugin** | `dsh-tool-budget` **0.1.1** |
+| **Minimum dsh** | ≥ **0.1.2** (web UI one-shot `?token=` on Windows relay `:3081`) |
+| **Latest verified** | See [dsh-wsl-kit Compatibility](https://github.com/173787247/dsh-wsl-kit#compatibility-2026-09) (currently **`0.1.5-rc.1`**) — single source of truth for the suite |
+| **Kit set** | `daily` (also in `github` / `full`; fetch+net also in `llm`) |
+| **Cloud Flash** | Use model id **`deepseek-flash`** (V4.1 Flash) in `~/.dsh/settings.yaml` / `llm-deepseek` — not configured by this plugin |
+| **Agent Teams** | Upstream experimental; not required here |
 
-### Why
+Suite floor versions: kit [`check-plugin-versions.sh`](https://github.com/173787247/dsh-wsl-kit/blob/master/scripts/check-plugin-versions.sh). Fault tree: [TROUBLESHOOTING.md](https://github.com/173787247/dsh-wsl-kit/blob/master/docs/TROUBLESHOOTING.md).
 
-Repeat-stop catches identical spam. Budget catches 鈥渕any different tools forever鈥?in one session鈥攗seful when long WSL tasks burn API quota.
+## Why
+
+Repeat-stop catches identical spam. Budget catches “many different tools forever” in one session—useful when long WSL tasks burn API quota.
 
 Default: **80** tracked calls allowed; the **81st** is denied. Job status tools are excluded by default.
 
 This is a **safety rail**, not a product license limit. Raise `maxCalls` or disable if it feels tight.
 
-### Install
+## Install
 
 ```sh
 dsh plugin --profile web add github:173787247/dsh-tool-budget
@@ -26,7 +36,7 @@ dsh plugin --profile web add github:173787247/dsh-tool-budget
 
 Restart `dsh web`. No new tool. Blocks show as `dsh-tool-budget: blocked` in Trajectory.
 
-### Config
+## Config
 
 ```yaml
 - id: dsh-tool-budget
@@ -48,13 +58,20 @@ Restart `dsh web`. No new tool. Blocks show as `dsh-tool-budget: blocked` in Tra
 | `exclude` | job_* | Names that do not count |
 | `include` | (empty) | If set, only these names count |
 
-### Test
+## vs dsh-repeat-stop
+
+| Plugin | What it blocks |
+|--------|----------------|
+| `dsh-repeat-stop` | Consecutive identical calls |
+| `dsh-tool-budget` | Total tool calls in the whole session |
+
+## Test
 
 ```sh
 npm test
 ```
 
-### FAQ
+## FAQ
 
 **Does this replace dsh-repeat-stop?** No. Repeat-stop blocks identical streaks; this caps total calls per session.
 
@@ -62,27 +79,6 @@ npm test
 
 **How do I raise the limit?** Set `config.maxCalls` in your profile `cordis.patch.yml` and restart `dsh web`.
 
-### License
-
-MIT
-
----
-
-
-## 涓枃
-
-### 涓轰粈涔堥渶瑕?
-
-`repeat-stop` 绠°€屽悓涓€璋冪敤杩炲埛銆嶏紱鏈彃浠剁銆屾暣鍦轰細璇濆伐鍏疯皟鐢ㄦ€绘鏁般€嶏紝闃叉闀夸换鍔℃崲鐫€鑺辨牱绌鸿浆銆佺儳棰濆害銆?
-
-榛樿 80 娆★紝绗?81 娆＄‖鎷︺€傝繖鏄?*瀹夊叏闃€**锛屼笉鏄巿鏉冮檺鍒讹紱瑙夊緱绱у氨璋冨ぇ `maxCalls` 鎴栧叧鎺夈€?
-
-### 瀹夎
-
-```sh
-dsh plugin --profile web add github:173787247/dsh-tool-budget
-```
-
-### 璁稿彲
+## License
 
 MIT
