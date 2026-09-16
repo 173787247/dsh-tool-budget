@@ -6,12 +6,24 @@ DeepSeek Harness 插件：按**单场会话**工具调用预算做**硬拦截**�
 
 [English → README.md](./README.md)
 
+## 在套件里的位置
+
+单个会话的工具调用到达预算就硬停。完全相同的循环是 dsh-repeat-stop。
+
+```mermaid
+flowchart LR
+  calls["同一会话的工具调用"] --> budget["dsh-tool-budget"] --> stop["硬停"]
+```
+
+整套关系图和版本快照：[dsh-wsl-kit 中文说明](https://github.com/173787247/dsh-wsl-kit/blob/master/README.zh.md)。本插件是 **0.1.2**（daily）。不要把那份总表抄进本 README。
+
+
 ---
 ## 兼容性
 
 | 项 | 值 |
 |----|----|
-| **插件** | `dsh-tool-budget` **0.1.1** |
+| **插件** | `dsh-tool-budget` **0.1.2** |
 | **最低 dsh** | ≥ **0.1.2**（Windows 中继 `:3081` 一次性 `?token=`） |
 | **最新验证** | 以 [dsh-wsl-kit 兼容性](https://github.com/173787247/dsh-wsl-kit#compatibility-2026-09) 为准（当前 **`0.1.5-rc.1`**）— 套件唯一真源 |
 | **套件档位** | `daily`（亦含于 `github` / `full`；fetch+net 亦在 `llm`） |

@@ -6,12 +6,24 @@ Pairs with [dsh-repeat-stop](https://github.com/173787247/dsh-repeat-stop). Part
 
 [中文说明 → README.zh.md](./README.zh.md)
 
+## Where it sits
+
+Hard-stops tool use after a per-session budget. Identical-call loops are dsh-repeat-stop.
+
+```mermaid
+flowchart LR
+  calls["tool calls in one session"] --> budget["dsh-tool-budget"] --> stop["hard stop"]
+```
+
+Suite diagram and version snapshot: [dsh-wsl-kit](https://github.com/173787247/dsh-wsl-kit#how-the-pieces-fit). This plugin is **0.1.2** (daily). Do not copy that matrix into this README.
+
+
 ---
 ## Compatibility
 
 | Field | Value |
 |-------|-------|
-| **Plugin** | `dsh-tool-budget` **0.1.1** |
+| **Plugin** | `dsh-tool-budget` **0.1.2** |
 | **Minimum dsh** | ≥ **0.1.2** (web UI one-shot `?token=` on Windows relay `:3081`) |
 | **Latest verified** | See [dsh-wsl-kit Compatibility](https://github.com/173787247/dsh-wsl-kit#compatibility-2026-09) (currently **`0.1.5-rc.1`**) — single source of truth for the suite |
 | **Kit set** | `daily` (also in `github` / `full`; fetch+net also in `llm`) |
